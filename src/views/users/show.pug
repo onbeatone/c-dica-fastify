@@ -1,0 +1,50 @@
+extends ../layouts/page.pug
+
+block content
+
+  .row.justify-content-center
+
+    .col-lg-8
+
+      .card.shadow
+
+        .card-header.bg-primary.text-white
+          h2.mb-0
+            i.bi.bi-person-circle.me-2
+            = user.username
+
+        .card-body
+
+          .row.mb-3
+            .col-md-3
+              strong ID
+
+            .col-md-9
+              = user.id
+
+          .row.mb-3
+            .col-md-3
+              strong Username
+
+            .col-md-9
+              = user.username
+
+          .row.mb-3
+            .col-md-3
+              strong Email
+
+            .col-md-9
+              = user.email
+
+          .row.mb-3
+            .col-md-3
+              strong Role
+
+            .col-md-9
+              span.badge.bg-primary
+                = user.role
+
+        .card-footer
+          a.btn.btn-secondary(href='/users')
+            i.bi.bi-arrow-left.me-2
+            | Back to Users

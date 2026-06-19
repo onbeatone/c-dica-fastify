@@ -1,8 +1,28 @@
 extends ../layouts/page.pug
 
 block content
-  h2 New Course
 
-  form(method='post', action='/courses')
-    input(type='text', name='title')
-    button(type='submit') Save
+  h1 New Course
+
+  form(action='/courses' method='post')
+
+    div.mb-3
+      label.form-label Title
+
+      input.form-control(
+        type='text'
+        name='titulo'
+        required
+      )
+
+    div.mb-3
+      label.form-label Description
+
+      textarea.form-control(
+        name='descripcion'
+        rows='4'
+        required
+      )
+
+    button.btn.btn-primary(type='submit')
+      Create Course

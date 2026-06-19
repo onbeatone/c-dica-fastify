@@ -1,9 +1,61 @@
 extends ../layouts/page.pug
 
 block content
-  h2 Courses
 
-  each course in courses
-    div
-      a(href=`/courses/${course.id}`)
-        = course.titulo
+  .d-flex.justify-content-between.align-items-center.mb-4
+    h2.mb-0
+      i.bi.bi-journal-bookmark-fill.me-2.text-primary
+      | Courses
+
+  .card.shadow-sm.border-0.mb-4
+    .card-body
+
+      form.row.g-2(method='GET' action='/courses')
+
+        .col-md-10
+          input.form-control(
+            type='search'
+            name='term'
+            value=term
+            placeholder='Search course...'
+          )
+
+        .col-md-2.d-grid
+          button.btn.btn-primary(type='submit')
+            i.bi.bi-search.me-2
+            | Search
+
+  if courses.length === 0
+
+    .text-center.py-5
+      i.bi.bi-journal-x.display-1.text-muted
+      h4.mt-3 No courses found
+      p.text-muted Try adjusting your search criteria
+
+  else
+
+    .row.row-cols-1.row-cols-md-2.row-cols-lg-3.g-4
+
+      each course in courses
+
+        .col
+          .card.h-100.shadow-sm.border-0
+
+            .card-body
+
+              h5.card-title
+                a.text-decoration-none(
+                  href=`/courses/${course.id}`
+                )
+                  | #{course.titulo}
+
+              p.card-text.text-muted
+                = course.descripcion
+
+            .card-footer.bg-white.border-0
+
+              a.btn.btn-sm.btn-outline-primary(
+                href=`/courses/${course.id}`
+              )
+                i.bi.bi-eye-fill.me-1
+                | View details
