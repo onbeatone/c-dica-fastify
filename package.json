@@ -10,6 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "fastify": "^5.8.5"
+    "@fastify/view": "^12.0.0",
+    "fastify": "^5.8.5",
+    "pug": "^3.0.4"
   }
 }

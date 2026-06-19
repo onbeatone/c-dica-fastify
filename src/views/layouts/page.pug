@@ -1,0 +1,29 @@
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Ocus App
+
+  body
+    header
+      h1 Ocus
+
+      nav
+        a(href='/') Home
+        |  |
+        a(href='/users') Users
+        |  |
+        a(href='/courses') Courses
+
+    hr
+
+    main
+      block content
+
+    hr
+
+    footer
+      p
+        | Powered by Ocus Corporation -
+        a(href='https://github.com/onbeatone' target='_blank')
+          | GitHub

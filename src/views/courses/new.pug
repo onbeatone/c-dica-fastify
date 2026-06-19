@@ -1,0 +1,8 @@
+extends ../layouts/page.pug
+
+block content
+  h2 New Course
+
+  form(method='post', action='/courses')
+    input(type='text', name='title')
+    button(type='submit') Save
