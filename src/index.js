@@ -12,6 +12,11 @@ app.get('/hello', (req, res) => {
   res.send(`Hello, ${name}!`);
 });
 
+app.get('/users/:id/post/:postId', (req, res) => {
+  const { id, postId } = req.params;
+  res.send(`User ID: ${id}, Post ID: ${postId}`);
+});
+
 app.listen({ port }, () => {
   console.log(`Example app listening on port ${port}`);
 });
