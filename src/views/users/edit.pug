@@ -12,40 +12,43 @@ block content
 
           h3.mb-0
             i.bi.bi-pencil-fill.me-2
-            | Edit Course
+            | Edit User
 
         .card-body
 
           form(
-            method='post'
-            action=route('updateCourse', { id: course.id })
+            method='patch'
+            action=route('updateUser', { id: user.id })
           )
 
             .mb-3
 
-              label.form-label Title
+              label.form-label
+                | Username
 
               input.form-control(
                 type='text'
-                name='titulo'
-                value=course.titulo
+                name='username'
+                value=user.username
                 required
               )
 
             .mb-3
 
-              label.form-label Description
+              label.form-label
+                | Email
 
-              textarea.form-control(
-                name='descripcion'
-                rows='5'
+              input.form-control(
+                type='email'
+                name='email'
+                value=user.email
                 required
-              )= course.descripcion
+              )
 
             .d-flex.justify-content-between
 
               a.btn.btn-outline-secondary(
-                href=route('course', { id: course.id })
+                href=route('user', { id: user.id })
               )
                 i.bi.bi-arrow-left.me-2
                 | Cancel

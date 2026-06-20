@@ -22,6 +22,19 @@ block content
 
         .card-body.p-4
 
+          if error
+            .alert.alert-danger
+              h6.mb-2
+                i.bi.bi-exclamation-triangle-fill.me-2
+                | Validation Errors
+
+              if error.validation
+                ul.mb-0
+                  each validationError in error.validation
+                    li= validationError.message
+              else
+                p.mb-0= error.message
+
           form(action='/users' method='post')
 
             .mb-3
@@ -30,9 +43,11 @@ block content
                 | Full Name
 
               input.form-control(
+                class=error ? 'is-invalid' : ''
                 id='name'
                 type='text'
                 name='name'
+                value=name || ''
                 placeholder='John Doe'
               )
 
@@ -42,9 +57,11 @@ block content
                 | Email
 
               input.form-control(
+                class=error ? 'is-invalid' : ''
                 id='email'
                 type='email'
                 name='email'
+                value=email || ''
                 placeholder='john@example.com'
                 required
               )
@@ -55,6 +72,7 @@ block content
                 | Password
 
               input.form-control(
+                class=error ? 'is-invalid' : ''
                 id='password'
                 type='password'
                 name='password'
@@ -67,6 +85,7 @@ block content
                 | Confirm Password
 
               input.form-control(
+                class=error ? 'is-invalid' : ''
                 id='passwordConfirmation'
                 type='password'
                 name='passwordConfirmation'

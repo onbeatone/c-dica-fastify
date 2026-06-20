@@ -2,27 +2,55 @@ extends ../layouts/page.pug
 
 block content
 
-  h1 New Course
+  .row.justify-content-center
 
-  form(action='/courses' method='post')
+    .col-lg-8
 
-    div.mb-3
-      label.form-label Title
+      .card.shadow-sm.border-0
 
-      input.form-control(
-        type='text'
-        name='titulo'
-        required
-      )
+        .card-header.bg-primary.text-white
 
-    div.mb-3
-      label.form-label Description
+          h3.mb-0
+            i.bi.bi-plus-circle-fill.me-2
+            | New Course
 
-      textarea.form-control(
-        name='descripcion'
-        rows='4'
-        required
-      )
+        .card-body
 
-    button.btn.btn-primary(type='submit')
-      Create Course
+          form(
+            action=route('createCourse')
+            method='post'
+          )
+
+            .mb-3
+
+              label.form-label Title
+
+              input.form-control(
+                type='text'
+                name='titulo'
+                required
+              )
+
+            .mb-3
+
+              label.form-label Description
+
+              textarea.form-control(
+                name='descripcion'
+                rows='5'
+                required
+              )
+
+            .d-flex.justify-content-between
+
+              a.btn.btn-outline-secondary(
+                href=route('courses')
+              )
+                i.bi.bi-arrow-left.me-2
+                | Cancel
+
+              button.btn.btn-primary(
+                type='submit'
+              )
+                i.bi.bi-check-circle-fill.me-2
+                | Create Course

@@ -1,9 +1,32 @@
 extends ../layouts/page.pug
 
 block content
-  h2= course.titulo
 
-  p= course.descripcion
+  .card.shadow-sm.border-0
 
-  p
-    a(href='/courses') Back
+    .card-header.bg-primary.text-white
+
+      h3.mb-0
+        i.bi.bi-book-fill.me-2
+        = course.titulo
+
+    .card-body
+
+      p.lead
+        = course.descripcion
+
+    .card-footer.bg-white
+
+      .d-flex.gap-2
+
+        a.btn.btn-outline-secondary(
+          href=route('courses')
+        )
+          i.bi.bi-arrow-left.me-2
+          | Back
+
+        a.btn.btn-warning(
+          href=route('editCourse', { id: course.id })
+        )
+          i.bi.bi-pencil-fill.me-2
+          | Edit

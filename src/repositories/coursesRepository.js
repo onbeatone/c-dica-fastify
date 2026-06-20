@@ -29,4 +29,31 @@ this.courses.push(course);
 nextId() {
 return this.courses.length + 1;
 },
+
+update(id, attrs) {
+  const course = this.findById(id);
+
+  if (!course) {
+    return null;
+  }
+
+  Object.assign(course, attrs);
+
+  return course;
+},
+
+remove(id) {
+  const index = this.courses.findIndex(
+    (course) => course.id === Number(id),
+  );
+
+  if (index === -1) {
+    return false;
+  }
+
+  this.courses.splice(index, 1);
+
+  return true;
+},
+
 };
