@@ -1,59 +1,59 @@
 export default {
-courses: [
-{
-id: 1,
-titulo: 'JS: Arrays',
-descripcion: 'Curso sobre arrays en JavaScript',
-},
-{
-id: 2,
-titulo: 'JS: Funciones',
-descripcion: 'Curso sobre funciones en JavaScript',
-},
-],
+  courses: [
+    {
+      id: 1,
+      titulo: 'JS: Arrays',
+      descripcion: 'Curso sobre arrays en JavaScript',
+    },
+    {
+      id: 2,
+      titulo: 'JS: Funciones',
+      descripcion: 'Curso sobre funciones en JavaScript',
+    },
+  ],
 
-findAll() {
-return this.courses;
-},
+  findAll() {
+    return this.courses;
+  },
 
-findById(id) {
-return this.courses.find(
-(course) => course.id === Number(id),
-);
-},
+  findById(id) {
+    return this.courses.find(
+      (course) => course.id === Number(id),
+    );
+  },
 
-save(course) {
-this.courses.push(course);
-},
+  save(course) {
+    this.courses.push(course);
+  },
 
-nextId() {
-return this.courses.length + 1;
-},
+  nextId() {
+    if (this.courses.length === 0) return 1;
+    return Math.max(...this.courses.map((c) => c.id)) + 1;
+  },
 
-update(id, attrs) {
-  const course = this.findById(id);
+  update(id, attrs) {
+    const course = this.findById(id);
 
-  if (!course) {
-    return null;
-  }
+    if (!course) {
+      return null;
+    }
 
-  Object.assign(course, attrs);
+    Object.assign(course, attrs);
 
-  return course;
-},
+    return course;
+  },
 
-remove(id) {
-  const index = this.courses.findIndex(
-    (course) => course.id === Number(id),
-  );
+  remove(id) {
+    const index = this.courses.findIndex(
+      (course) => course.id === Number(id),
+    );
 
-  if (index === -1) {
-    return false;
-  }
+    if (index === -1) {
+      return false;
+    }
 
-  this.courses.splice(index, 1);
+    this.courses.splice(index, 1);
 
-  return true;
-},
-
+    return true;
+  },
 };

@@ -2,49 +2,68 @@ extends ../layouts/page.pug
 
 block content
 
-  .row.justify-content-center
+  .d-flex.justify-content-between.align-items-center.mb-4
 
-    .col-lg-8
+    h2.mb-0
+      i.bi.bi-person-circle.me-2.text-primary
+      | #{user.username}
 
-      .card.shadow
+    div
+      a.btn.btn-outline-secondary.me-2(href=route('editUser', { id: user.id }))
+        i.bi.bi-pencil-fill.me-1
+        | Editar
 
-        .card-header.bg-primary.text-white
-          h2.mb-0
-            i.bi.bi-person-circle.me-2
-            = user.username
+      a.btn.btn-outline-secondary(href=route('users'))
+        i.bi.bi-arrow-left.me-1
+        | Volver
 
-        .card-body
+  .card.shadow-sm.border-0
 
-          .row.mb-3
-            .col-md-3
-              strong ID
+    .card-body.p-4
 
-            .col-md-9
-              = user.id
+      .row.mb-3
 
-          .row.mb-3
-            .col-md-3
-              strong Username
+        .col-md-3.text-muted.fw-semibold ID
+        .col-md-9
+          span.badge.bg-secondary= user.id
 
-            .col-md-9
-              = user.username
+      .row.mb-3
 
-          .row.mb-3
-            .col-md-3
-              strong Email
+        .col-md-3.text-muted.fw-semibold Nombre
+        .col-md-9= user.username
 
-            .col-md-9
-              = user.email
+      .row.mb-3
 
-          .row.mb-3
-            .col-md-3
-              strong Role
+        .col-md-3.text-muted.fw-semibold Email
+        .col-md-9= user.email
 
-            .col-md-9
-              span.badge.bg-primary
-                = user.role
+      .row.mb-3
 
-        .card-footer
-          a.btn.btn-secondary(href='/users')
-            i.bi.bi-arrow-left.me-2
-            | Back to Users
+        .col-md-3.text-muted.fw-semibold Rol
+        .col-md-9
+          if user.role === 'Administrator'
+            span.badge.bg-danger
+              i.bi.bi-shield-lock-fill.me-1
+              | Administrator
+          else if user.role === 'Instructor'
+            span.badge.bg-success
+              i.bi.bi-mortarboard-fill.me-1
+              | Instructor
+          else
+            span.badge.bg-primary
+              i.bi.bi-person-fill.me-1
+              | #{user.role}
+
+  //- Eliminar usuario (solo si no es uno mismo)
+  if locals.currentUser && locals.currentUser.role === 'Administrator' && locals.currentUser.id !== user.id
+    .mt-4
+
+      form(
+        method='post'
+        action=`/users/${user.id}`
+        onsubmit='return confirm("¿Estás seguro de eliminar este usuario?")'
+      )
+        input(type='hidden' name='_method' value='DELETE')
+        button.btn.btn-outline-danger(type='submit')
+          i.bi.bi-trash-fill.me-1
+          | Eliminar usuario

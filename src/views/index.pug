@@ -2,3 +2,13 @@ extends layouts/page.pug
 
 block content
   h2 Welcome to Ocus Academy
+
+  if !visited
+
+    .alert.alert-info
+
+      h4 Welcome!
+
+      p
+        | Este mensaje solo aparece la primera vez que visitas la página.
+        | Para verlo nuevamente debes borrar las cookies del navegador.

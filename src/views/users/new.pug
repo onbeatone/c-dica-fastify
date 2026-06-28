@@ -3,100 +3,93 @@ extends ../layouts/page.pug
 block content
 
   .row.justify-content-center
-    .col-lg-7.col-xl-6
 
-      .text-center.mb-4
-        h1.display-6.fw-bold
-          i.bi.bi-person-plus-fill.me-2
-          | Create Account
+    .col-md-6
 
-        p.text-muted
-          | Join Future
+      .card.shadow-sm
 
-      .card.shadow-lg.border-0
+        .card-header.bg-dark.text-white
 
-        .card-header.bg-primary.text-white.py-3
-          h4.mb-0
-            i.bi.bi-shield-lock-fill.me-2
-            | User Registration
+          h5.mb-0
+            i.bi.bi-person-plus-fill.me-2
+            | Crear Cuenta
 
         .card-body.p-4
 
+          //- Errores de validación del schema yup
           if error
             .alert.alert-danger
-              h6.mb-2
-                i.bi.bi-exclamation-triangle-fill.me-2
-                | Validation Errors
-
-              if error.validation
-                ul.mb-0
-                  each validationError in error.validation
-                    li= validationError.message
+              i.bi.bi-exclamation-triangle-fill.me-2
+              if error.inner && error.inner.length > 0
+                ul.mb-0.mt-1
+                  each err in error.inner
+                    li= err.message
               else
-                p.mb-0= error.message
+                = error.message
 
-          form(action='/users' method='post')
+          form(
+            method='post'
+            action=route('createUser')
+          )
 
             .mb-3
-              label.form-label(for='name')
-                i.bi.bi-person.me-2
-                | Full Name
+
+              label.form-label(for='name') Nombre
 
               input.form-control(
-                class=error ? 'is-invalid' : ''
-                id='name'
                 type='text'
+                id='name'
                 name='name'
                 value=name || ''
-                placeholder='John Doe'
+                placeholder='Tu nombre completo'
+                required
               )
 
             .mb-3
-              label.form-label(for='email')
-                i.bi.bi-envelope.me-2
-                | Email
+
+              label.form-label(for='email') Email
 
               input.form-control(
-                class=error ? 'is-invalid' : ''
-                id='email'
                 type='email'
+                id='email'
                 name='email'
                 value=email || ''
-                placeholder='john@example.com'
+                placeholder='tu@email.com'
                 required
               )
 
             .mb-3
-              label.form-label(for='password')
-                i.bi.bi-key.me-2
-                | Password
+
+              label.form-label(for='password') Contraseña
 
               input.form-control(
-                class=error ? 'is-invalid' : ''
+                type='password'
                 id='password'
-                type='password'
                 name='password'
+                placeholder='Mínimo 5 caracteres'
                 required
               )
 
-            .mb-4
-              label.form-label(for='passwordConfirmation')
-                i.bi.bi-check-circle.me-2
-                | Confirm Password
+            .mb-3
+
+              label.form-label(for='passwordConfirmation') Confirmar Contraseña
 
               input.form-control(
-                class=error ? 'is-invalid' : ''
-                id='passwordConfirmation'
                 type='password'
+                id='passwordConfirmation'
                 name='passwordConfirmation'
+                placeholder='Repite tu contraseña'
                 required
               )
 
-            .d-grid
-              button.btn.btn-primary.btn-lg(type='submit')
-                i.bi.bi-person-check-fill.me-2
-                | Register Account
+            .d-grid.mt-4
 
-        .card-footer.bg-light.text-center
-          small.text-muted
-            | OCUS • Join Future
+              button.btn.btn-primary(type='submit')
+                i.bi.bi-person-check-fill.me-2
+                | Registrarse
+
+          hr
+
+          p.text-center.text-muted.mb-0
+            | ¿Ya tienes cuenta?&nbsp;
+            a(href=route('newSession')) Inicia sesión

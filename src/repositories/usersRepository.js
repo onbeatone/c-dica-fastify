@@ -1,65 +1,72 @@
 export default {
-users: [
-{
-id: 1,
-username: 'admin',
-email: 'admin@ocus.dev',
-role: 'Administrator',
-},
-{
-id: 2,
-username: 'johndoe',
-email: 'john@ocus.dev',
-role: 'Student',
-},
-{
-id: 3,
-username: 'janedoe',
-email: 'jane@ocus.dev',
-role: 'Instructor',
-},
-],
+  users: [
+    {
+      id: 1,
+      username: 'admin',
+      email: 'admin@ocus.dev',
+      password: 'admin123',
+      role: 'Administrator',
+    },
+    {
+      id: 2,
+      username: 'johndoe',
+      email: 'john@ocus.dev',
+      password: 'john123',
+      role: 'Student',
+    },
+    {
+      id: 3,
+      username: 'janedoe',
+      email: 'jane@ocus.dev',
+      password: 'jane123',
+      role: 'Instructor',
+    },
+  ],
 
-findAll() {
-return this.users;
-},
+  findAll() {
+    return this.users;
+  },
 
-findById(id) {
-return this.users.find((user) => user.id === Number(id));
-},
+  findById(id) {
+    return this.users.find((user) => user.id === Number(id));
+  },
 
-save(user) {
-this.users.push(user);
-},
+  save(user) {
+    this.users.push(user);
+  },
 
-nextId() {
-return this.users.length + 1;
-},
+  // Usa el max ID actual para evitar colisiones tras eliminaciones
+  nextId() {
+    if (this.users.length === 0) return 1;
+    return Math.max(...this.users.map((u) => u.id)) + 1;
+  },
 
-update(id, attrs) {
-  const user = this.findById(id);
+  update(id, attrs) {
+    const user = this.findById(id);
 
-  if (!user) {
-    return null;
-  }
+    if (!user) {
+      return null;
+    }
 
-  Object.assign(user, attrs);
+    // No permitir sobrescribir id, password o role desde aquí
+    const { id: _id, password: _pw, role: _role, ...safeAttrs } = attrs;
 
-  return user;
-},
+    Object.assign(user, safeAttrs);
 
-remove(id) {
-  const index = this.users.findIndex(
-    (user) => user.id === Number(id),
-  );
+    return user;
+  },
 
-  if (index === -1) {
-    return false;
-  }
+  remove(id) {
+    const index = this.users.findIndex(
+      (user) => user.id === Number(id),
+    );
 
-  this.users.splice(index, 1);
+    if (index === -1) {
+      return false;
+    }
 
-  return true;
-},
+    this.users.splice(index, 1);
 
+    return true;
+  },
 };

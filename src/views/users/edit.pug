@@ -4,57 +4,53 @@ block content
 
   .row.justify-content-center
 
-    .col-lg-8
+    .col-md-6
 
-      .card.shadow-sm.border-0
+      .card.shadow-sm
 
-        .card-header.bg-warning
+        .card-header.bg-dark.text-white
 
-          h3.mb-0
+          h5.mb-0
             i.bi.bi-pencil-fill.me-2
-            | Edit User
+            | Editar Usuario
 
-        .card-body
+        .card-body.p-4
 
           form(
-            method='patch'
-            action=route('updateUser', { id: user.id })
+            method='post'
+            action=`/users/${user.id}`
           )
+            input(type='hidden' name='_method' value='PATCH')
 
             .mb-3
 
-              label.form-label
-                | Username
+              label.form-label(for='name') Nombre
 
               input.form-control(
                 type='text'
-                name='username'
+                id='name'
+                name='name'
                 value=user.username
                 required
               )
 
             .mb-3
 
-              label.form-label
-                | Email
+              label.form-label(for='email') Email
 
               input.form-control(
                 type='email'
+                id='email'
                 name='email'
                 value=user.email
                 required
               )
 
-            .d-flex.justify-content-between
+            .d-flex.gap-2.mt-4
 
-              a.btn.btn-outline-secondary(
-                href=route('user', { id: user.id })
-              )
-                i.bi.bi-arrow-left.me-2
-                | Cancel
+              button.btn.btn-primary(type='submit')
+                i.bi.bi-check-lg.me-1
+                | Guardar cambios
 
-              button.btn.btn-warning(
-                type='submit'
-              )
-                i.bi.bi-save-fill.me-2
-                | Save Changes
+              a.btn.btn-outline-secondary(href=route('user', { id: user.id }))
+                | Cancelar

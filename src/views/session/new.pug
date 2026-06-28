@@ -1,0 +1,66 @@
+extends ../layouts/page.pug
+
+block content
+
+  .row.justify-content-center
+
+    .col-md-5
+
+      .card.shadow-sm
+
+        .card-header.bg-dark.text-white
+
+          h5.mb-0
+            i.bi.bi-box-arrow-in-right.me-2
+            | Iniciar Sesión
+
+        .card-body.p-4
+
+          //- Errores de validación inline
+          if error
+            .alert.alert-danger
+              i.bi.bi-exclamation-triangle-fill.me-2
+              = error.message || error
+
+          form(
+            method='post'
+            action=route('createSession')
+          )
+
+            .mb-3
+
+              label.form-label(for='email')
+                | Email
+
+              input.form-control(
+                type='email'
+                id='email'
+                name='email'
+                placeholder='tu@email.com'
+                required
+              )
+
+            .mb-3
+
+              label.form-label(for='password')
+                | Contraseña
+
+              input.form-control(
+                type='password'
+                id='password'
+                name='password'
+                placeholder='••••••••'
+                required
+              )
+
+            .d-grid.mt-4
+
+              button.btn.btn-primary(type='submit')
+                i.bi.bi-box-arrow-in-right.me-2
+                | Ingresar
+
+          hr
+
+          p.text-center.text-muted.mb-0
+            | ¿No tienes cuenta?&nbsp;
+            a(href=route('newUser')) Regístrate aquí
